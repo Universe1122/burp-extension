@@ -1,6 +1,8 @@
 from burp import IBurpExtender, IContextMenuFactory, IContextMenuInvocation
 from javax.swing import JMenuItem
 
+import page.CommentUrlPopup as CommentUrlPopup
+
 class ContextMenu(IBurpExtender, IContextMenuFactory):
 
     def __init__(self, parent_self):
@@ -11,12 +13,7 @@ class ContextMenu(IBurpExtender, IContextMenuFactory):
 
         if context == IContextMenuInvocation.CONTEXT_MESSAGE_VIEWER_REQUEST or context == IContextMenuInvocation.CONTEXT_PROXY_HISTORY:
             menu_name = "Add comments about this url"
-            menu_item = JMenuItem(menu_name, actionPerformed = self.test)
+            menu_item = JMenuItem(menu_name, actionPerformed = CommentUrlPopup.CommentUrlPopup().onClickContextMenu)
             menu_item.putClientProperty("test22", "aa")
 
             return [menu_item]
-
-    def test(self, event):
-        menu_item = event.getSource()
-        get_data = menu_item.getClientProperty("test22")
-        self.parent_self.stdout.println(get_data)

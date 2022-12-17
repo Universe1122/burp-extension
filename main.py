@@ -9,7 +9,7 @@ class BurpExtender(IBurpExtender, IContextMenuFactory):
         callback.setExtensionName("test")
         callback.registerContextMenuFactory(self)
         self.stdout = PrintWriter(callback.getStdout(), True)
-    
+
     def createMenuItems(self, invocation):
         context_menu = ContextMenu.ContextMenu(self)
 
