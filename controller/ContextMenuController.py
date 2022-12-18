@@ -1,9 +1,9 @@
 from burp import IBurpExtender, IContextMenuFactory, IContextMenuInvocation
 from javax.swing import JMenuItem
 
-import page.CommentUrlPopup as CommentUrlPopup
+import service.CommentUrlPopupService as CommentUrlPopupService
 
-class ContextMenu(IBurpExtender, IContextMenuFactory):
+class ContextMenuController(IBurpExtender, IContextMenuFactory):
 
     def __init__(self, helper):
         self.helper = helper
@@ -22,7 +22,7 @@ class ContextMenu(IBurpExtender, IContextMenuFactory):
                 req_url = req.getHeaders()[0].split(" ")[1]
 
             menu_name = "Add comments about this url"
-            menu_item = JMenuItem(menu_name, actionPerformed = CommentUrlPopup.CommentUrlPopup().onClickContextMenu)
+            menu_item = JMenuItem(menu_name, actionPerformed = CommentUrlPopupService.CommentUrlPopupService().onClickContextMenu)
             menu_item.putClientProperty("request_url", req_url)
             menu_item.putClientProperty("comment", comment)
             menu_item.putClientProperty("set_comment_func", req_res.setComment)

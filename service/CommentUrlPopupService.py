@@ -1,9 +1,9 @@
 from javax.swing import JFrame, JButton
 from java.awt import Frame
 
-import frame.CommentUrlFrame as CommentUrlFrame
+import model.CommentUrlFrame as CommentUrlFrame
 
-class CommentUrlPopup():
+class CommentUrlPopupService():
 
     def __init__(self):
         pass

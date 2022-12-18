@@ -1,5 +1,5 @@
 from burp import IBurpExtender, IContextMenuFactory
-import context.ContextMenu as ContextMenu
+import controller.ContextMenuController as ContextMenuController
 from java.io import PrintWriter
 
 class BurpExtender(IBurpExtender, IContextMenuFactory):
@@ -11,6 +11,6 @@ class BurpExtender(IBurpExtender, IContextMenuFactory):
         self.stdout = PrintWriter(callback.getStdout(), True)
 
     def createMenuItems(self, invocation):
-        context_menu = ContextMenu.ContextMenu(self.helper)
+        context_menu = ContextMenuController.ContextMenuController(self.helper)
 
         return context_menu.createContextMenu(invocation)
