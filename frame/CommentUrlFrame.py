@@ -4,7 +4,7 @@ from java.awt import Component, GridLayout, Frame, GridBagLayout, GridBagConstra
 
 class CommentUrlFrame():
 
-    def __init__(self, window_closing_handler):
+    def __init__(self, window_closing_handler, close_btn_click_handler, ok_btn_click_handler, data):
         self.frame = JFrame("Add comments about this url",
             size = (600, 300)
         )
@@ -35,7 +35,8 @@ class CommentUrlFrame():
         gbc.gridy = 0
         gbc.weightx = 0.9
         gbc.fill = GridBagConstraints.BOTH
-        panel.add(JTextField(20), gbc)
+        self.input_url = JTextField(data["request_url"], 20)
+        panel.add(self.input_url, gbc)
         # -> End
         ################################
 
@@ -56,14 +57,15 @@ class CommentUrlFrame():
         # gbc.gridheight = 2
         gbc.weighty = 0.7
         gbc.fill = GridBagConstraints.BOTH
-        panel.add(JTextArea(
-            text = "TextArea",
+        self.input_comment = JTextArea(
+            text = data["comment"],
             editable = True,
             wrapStyleWord = True,
             lineWrap = True,
             alignmentX = Component.LEFT_ALIGNMENT,
             size = (300, 40)
-        ), gbc)
+        )
+        panel.add(self.input_comment, gbc)
         # -> End
         ################################
 
@@ -76,14 +78,14 @@ class CommentUrlFrame():
         gbc.gridy = 4
         gbc.insets = Insets(5,5,0,0)
         gbc.anchor = GridBagConstraints.WEST
-        panel.add(JButton(" Cancel "), gbc)
+        panel.add(JButton(" Cancel ", actionPerformed = close_btn_click_handler), gbc)
 
         gbc = GridBagConstraints()
         gbc.gridx = 1
         gbc.gridy = 4
         gbc.insets = Insets(5,5,0,0)
         gbc.anchor = GridBagConstraints.EAST
-        panel.add(JButton(" OK "), gbc)
+        panel.add(JButton(" OK ", actionPerformed = ok_btn_click_handler), gbc)
         # -> End
         ################################
 

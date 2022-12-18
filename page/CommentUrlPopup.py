@@ -10,20 +10,23 @@ class CommentUrlPopup():
 
     def onClickContextMenu(self, event):
         menuItem = event.getSource()
-        get_data = menuItem.getClientProperty("test22")
+        data = {
+            "request_url" : menuItem.getClientProperty("request_url"),
+            "comment" : menuItem.getClientProperty("comment")
+        }
+        self.set_comment_func = menuItem.getClientProperty("set_comment_func")
 
-        self.comment_url = CommentUrlFrame.CommentUrlFrame(self.onClose)
-
-        # frame = JFrame("Add comments about this url",
-        #     # defaultCloseOperation = JFrame.EXIT_ON_CLOSE,
-        #     size = (300, 300)
-        # )
-        # frame.setLocationRelativeTo(self.getBurpFrame())
-        # frame.windowClosing = self.onClose
-
-        # button = JButton(get_data)
-        # frame.add(button)
-        # frame.visible = True
+        self.form = CommentUrlFrame.CommentUrlFrame(self.onClose, self.closeBtnClick, self.okBtnClick, data)
     
     def onClose(self, event):
-        pass
+        self.form.frame.dispose()
+
+    def closeBtnClick(self, event):
+        self.form.frame.dispose()
+
+    def okBtnClick(self, event):
+        input_url = self.form.input_url.getText()
+        comment = self.form.input_comment.getText()
+
+        self.set_comment_func(comment)
+        self.form.frame.dispose()

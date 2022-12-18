@@ -11,6 +11,6 @@ class BurpExtender(IBurpExtender, IContextMenuFactory):
         self.stdout = PrintWriter(callback.getStdout(), True)
 
     def createMenuItems(self, invocation):
-        context_menu = ContextMenu.ContextMenu(self)
+        context_menu = ContextMenu.ContextMenu(self.helper)
 
-        return context_menu.createContextMenu(self, invocation)
+        return context_menu.createContextMenu(invocation)
