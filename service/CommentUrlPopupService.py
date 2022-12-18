@@ -1,7 +1,7 @@
 from javax.swing import JFrame, JButton
 from java.awt import Frame
 
-import model.CommentUrlFrame as CommentUrlFrame
+import ui.CommentUrlFrame as CommentUrlFrame
 
 class CommentUrlPopupService():
 
