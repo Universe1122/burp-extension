@@ -2,11 +2,14 @@ from javax.swing import JFrame, JButton
 from java.awt import Frame
 
 import ui.CommentUrlFrame as CommentUrlFrame
+import config.Config as Config
+import service.url.PacketManager as PacketManager
 
 class CommentUrlPopupService():
 
-    def __init__(self):
-        pass
+    def __init__(self, config, packet_manager):
+        self.config = config
+        self.packet_manager = packet_manager
 
     def onClickContextMenu(self, event):
         menuItem = event.getSource()
@@ -25,8 +28,19 @@ class CommentUrlPopupService():
         self.form.frame.dispose()
 
     def okBtnClick(self, event):
+
+        # Get data from user input
         input_url = self.form.input_url.getText()
         comment = self.form.input_comment.getText()
 
+        # Set comment in burp message
         self.set_comment_func(comment)
+
+        # Close this popup
         self.form.frame.dispose()
+
+        # Save comment of url
+        self.packet_manager.setPacketInfo(input_url, {"comment" : comment, "test" : "aa", "test2" : {"1" : "2"}})
+        
+        # Save data to file
+        self.config.savePacketInfo(self.packet_manager.getPacketInfo())

@@ -5,8 +5,10 @@ import service.CommentUrlPopupService as CommentUrlPopupService
 
 class ContextMenuController(IBurpExtender, IContextMenuFactory):
 
-    def __init__(self, helper):
+    def __init__(self, helper, config, packet_manager):
         self.helper = helper
+        self.config = config
+        self.packet_manager = packet_manager
     
     def createContextMenu(self, invocation):
         context = invocation.getInvocationContext()
@@ -22,7 +24,7 @@ class ContextMenuController(IBurpExtender, IContextMenuFactory):
                 req_url = req.getHeaders()[0].split(" ")[1]
 
             menu_name = "Add comments about this url"
-            menu_item = JMenuItem(menu_name, actionPerformed = CommentUrlPopupService.CommentUrlPopupService().onClickContextMenu)
+            menu_item = JMenuItem(menu_name, actionPerformed = CommentUrlPopupService.CommentUrlPopupService(self.config, self.packet_manager).onClickContextMenu)
             menu_item.putClientProperty("request_url", req_url)
             menu_item.putClientProperty("comment", comment)
             menu_item.putClientProperty("set_comment_func", req_res.setComment)
