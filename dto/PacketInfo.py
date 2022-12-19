@@ -1,16 +1,15 @@
 class PacketInfo():
     def __init__(self):
         self.info = dict()
-        pass
     
-    def setUrl(self, url):
-        self.url = url
-    
-    def getUrl(self):
-        return self.url
-    
-    def getInfo(self):
+    def getInfoAll(self):
         return self.info
+    
+    def getInfo(self, key):
+        try:
+            return self.info[key]
+        except:
+            return {}
     
     def setInfo(self, key, value):
         self._setInfo(self.info, key, value)

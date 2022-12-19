@@ -15,7 +15,10 @@ class BurpExtender(IBurpExtender, IContextMenuFactory):
         self.stdout = PrintWriter(callback.getStdout(), True)
 
         self.config = Config.Config()
-        self.packet_manager = PacketManager.PacketManager()
+        self.packet_manager = PacketManager.PacketManager(self.config)
+
+        req_res = callback.getProxyHistory()
+        self.packet_manager.init(req_res, self.helper)
 
     def createMenuItems(self, invocation):
         context_menu = ContextMenuController.ContextMenuController(self.helper, self.config, self.packet_manager)

@@ -40,7 +40,7 @@ class CommentUrlPopupService():
         self.form.frame.dispose()
 
         # Save comment of url
-        self.packet_manager.setPacketInfo(input_url, {"comment" : comment, "test" : "aa", "test2" : {"1" : "2"}})
+        self.packet_manager.setPacketInfo(input_url, {"comment" : comment})
         
         # Save data to file
         self.config.savePacketInfo(self.packet_manager.getPacketInfo())

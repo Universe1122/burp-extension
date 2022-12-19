@@ -11,4 +11,7 @@ class Config():
         
     def readPacketInfo(self):
         with open(self.save_file_name, "r") as fp:
-            return json.loads(self.fp, encoding="cp949")
+            try:
+                return json.load(fp, encoding="cp949")
+            except ValueError:
+                return {}
