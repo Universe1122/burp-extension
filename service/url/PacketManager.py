@@ -5,8 +5,11 @@ class PacketManager():
     def __init__(self, config):
         self.info = PacketInfo.PacketInfo()
         self.info.info = config.readPacketInfo()
+    
+    def getPacketInfo(self, url):
+        return self.info.getInfo(url)
 
-    def getPacketInfo(self):
+    def getPacketInfoAll(self):
         return self.info.getInfoAll()
     
     def setPacketInfo(self, key, value):

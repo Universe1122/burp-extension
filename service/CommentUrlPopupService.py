@@ -33,6 +33,10 @@ class CommentUrlPopupService():
         input_url = self.form.input_url.getText()
         comment = self.form.input_comment.getText()
 
+        self.setComment(input_url, comment)
+    
+    def setComment(self, url, comment):
+
         # Set comment in burp message
         self.set_comment_func(comment)
 
@@ -40,7 +44,7 @@ class CommentUrlPopupService():
         self.form.frame.dispose()
 
         # Save comment of url
-        self.packet_manager.setPacketInfo(input_url, {"comment" : comment})
+        self.packet_manager.setPacketInfo(url, {"comment" : comment})
         
         # Save data to file
-        self.config.savePacketInfo(self.packet_manager.getPacketInfo())
+        self.config.savePacketInfo(self.packet_manager.getPacketInfoAll())
