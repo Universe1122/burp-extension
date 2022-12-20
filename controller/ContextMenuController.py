@@ -23,6 +23,8 @@ class ContextMenuController(IBurpExtender, IContextMenuFactory):
                 req_url = req.getUrl().toString()
             except:
                 req_url = req.getHeaders()[0].split(" ")[1]
+            
+            req_url = self.packet_manager.parseUrl(req_url)
 
             menu_name = "Add comments about this url"
             menu_item = JMenuItem(menu_name, actionPerformed = self.comment_url_popup_service.onClickContextMenu)
@@ -40,6 +42,7 @@ class ContextMenuController(IBurpExtender, IContextMenuFactory):
         except:
             req_url = req.getHeaders()[0].split(" ")[1]
         
+        req_url = self.packet_manager.parseUrl(req_url)
         packet_info = self.packet_manager.getPacketInfo(req_url)
 
         if packet_info:
